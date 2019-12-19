@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let submit = document.querySelector("#submit")
     let userReview = document.querySelector("#userReviews")
     let id; 
-    let p = document.createElement("p")
+    let h3 = document.createElement("h3")
     let p2 = document.createElement("p")
     let p3 = document.createElement("p")
 
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             title = film[i]["title"]
             option.innerText = title
             debugger
-            p.innerText = title
+            h3.innerText = title
             p2.innerText = release
             p3.innerText = descript
             select.appendChild(option)
@@ -38,16 +38,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     select.addEventListener("change", event => {
-        p.innerText = event.target.value
-        debugger
-        movieInfo.appendChild(p)
+        title = event.target.value
+        h3.innerText = title
+        movieInfo.appendChild(h3)
         movieInfo.appendChild(p2)
         movieInfo.appendChild(p3)
     })
     const review = (input) => {
         input = text.value
         let submitReview = document.createElement("li")
-        submitReview.innerText = input
+        let b = document.createElement("b")
+        b.innerText = title
+        submitReview.innerText = title + " " + input + " "
         userReview.appendChild(submitReview)
     }
     
