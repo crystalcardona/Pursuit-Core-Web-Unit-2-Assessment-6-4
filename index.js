@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let userInput = document.querySelector("#text")
     let submit = document.querySelector("#submit")
     let userReview = document.querySelector("#userReviews")
+    let id; 
 
     const fetchData = async () => {
         try {
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         for(let i = 0; i <= film.length; i++){
             let option = document.createElement("option")
             let filmNames = film[i]["title"]
+            id = film[i]["id"]
             option.innerText = filmNames
             select.appendChild(option)
             // debugger
@@ -35,36 +37,44 @@ document.addEventListener("DOMContentLoaded", () => {
         userReview.appendChild(submitReview)
     }
 
-    select.addEventListener("change", async event => {
+    const populateDescription = async () => {
+        debugger
         try {
-          let info = await axios.get(
-            `https://ghibliapi.herokuapp.com/films/${event.target.value}`
-          );
-          let p = document.createElement("p")
-          let p2 = document.createElement("p")
-          let p3 = document.createElement("p")
-    
-          release = info["release_date"]
-          descript = info["description"]
-          title = info["title"]
-    
-          title.innerText = title;
-          descript.innerText = descript;
-          release.innerText = release;
-    
-          movieInfo.appendChild(p)
-          movieInfo.appendChild(p2)
-          movieInfo.appendChild(p3)
-        } catch (err) {
-          debugger;
+            let resDescript = await axios.get(`https://ghibliapi.herokuapp.com/films/${id}`);
+            debugger
+            let info = resDescript.data
+            let p = document.createElement("p")
+            let p2 = document.createElement("p")
+            let p3 = document.createElement("p")
+
+                release = info["release_date"]
+                descript = info["description"]
+                title = info["title"]
+                debugger
+                
+                p.innerText = title;
+                p2.innerText = release;
+                p3.innerText = descript;
+                movieInfo.appendChild(p)
+                movieInfo.appendChild(p2)
+                movieInfo.appendChild(p3)
         }
-      });
+        catch(err){
+            console.log(err)
+        }
+    }
 
     submit.addEventListener("click", (e) => {
         e.preventDefault()
         review()
     })
+    select.addEventListener("change", (event) => {
+        select.value = event.target.value
+        populateDescription(id)
 
+    })
     fetchData()
 })
+
+
 
