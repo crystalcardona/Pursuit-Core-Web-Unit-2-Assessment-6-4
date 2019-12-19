@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     let film;
-    let year;
     let release;
-    let discript;
+    let descript;
     let title;
     let select = document.querySelector("select")
     let movieInfo = document.querySelector("#movieInfo")
-    let input = document.querySelector("#text")
+    let userInput = document.querySelector("#text")
     let submit = document.querySelector("#submit")
-    let description = document.querySelector("#descri[tion")
+    let userReview = document.querySelector("#userReviews")
 
     const fetchData = async () => {
         try {
@@ -28,18 +27,27 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(err)
         }
     }
+
+    const review = (input) => {
+        input = text.value
+        let submitReview = document.createElement("li")
+        submitReview.innerText = input
+        userReview.appendChild(submitReview)
+    }
+
     const populateDescription = async () => {
         try {
             let resDescript = await axios.get("https://ghibliapi.herokuapp.com/films");
             let info = resDescript.data
             debugger
-
-            for(let i =0; i < info.length; i++){
+                input = select.value
                 let p = document.createElement("p")
                 let p2 = document.createElement("p")
                 let p3 = document.createElement("p")
-                release = info[i]["release_date"]
-                descript = info[i]["description"]
+                release = info["release_date"]
+                descript = info.input["description"]
+                title = info.input["title"]
+                debugger
                 
                 p.innerText = title;
                 p2.innerText = release;
@@ -47,13 +55,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 movieInfo.appendChild(p)
                 movieInfo.appendChild(p2)
                 movieInfo.appendChild(p3)
-
-            }
         }
         catch(err){
             console.log(err)
         }
     }
+
+    submit.addEventListener("click", (e) => {
+        e.preventDefault()
+        review()
+    })
+    select.addEventListener("change", (event) => {
+        event.preventDefault()
+        select.value = event.target.value
+        populateDescription(select.value)
+
+    })
     fetchData()
-    populateDescription()
 })
