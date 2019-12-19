@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let userInput = document.querySelector("#text")
     let submit = document.querySelector("#submit")
     let userReview = document.querySelector("#userReviews")
-    let id; 
     let h3 = document.createElement("h3")
     let p2 = document.createElement("p")
     let p3 = document.createElement("p")
@@ -15,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
         let res = await axios.get("https://ghibliapi.herokuapp.com/films"); 
         film = res.data
-        debugger
 
         for(let i = 0; i <= film.length; i++){
             let option = document.createElement("option")
@@ -23,14 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
             let descript = film[i]["description"]
             title = film[i]["title"]
             option.innerText = title
-            debugger
+            
             h3.innerText = title
             p2.innerText = release
             p3.innerText = descript
             select.appendChild(option)
-            // debugger
-        }
-                
+        }       
         }
         catch(err){
             console.log(err)
@@ -47,9 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const review = (input) => {
         input = text.value
         let submitReview = document.createElement("li")
-        let b = document.createElement("b")
-        b.innerText = title
-        submitReview.innerText = title + " " + input + " "
+        // let b = document.createElement("b")
+        // b.innerText = title
+        submitReview.innerText = `${title}: ${input}`
         userReview.appendChild(submitReview)
     }
     

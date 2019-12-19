@@ -2,39 +2,61 @@
 body {
     background-color: lavender;
     font-family: monospace;
+    margin-right: 50px;
+    margin-left: 150px; 
+    
+    
 }
 #header {
-    /* height: 200px;
-    width: 100%;
     background-color: skyblue;
-    size: 20px;   
-    background-image: url("https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Studio_Ghibli_logo.svg/1200px-Studio_Ghibli_logo.svg.png");
-    background-size: 400px;
-    background-repeat: no-repeat;
-    text-align: right; */
-    background-color: skyblue;
-    width: 100%;
+    width: 80%;
     height: 150px;
-
+    display: grid;
+    display: flex;
+    flex-direction: row;
+    margin-right: 50px;
+    margin-left: 50px; 
 }
 
 h1 {
-    text-align: right;
-    padding-bottom: 100px;
+    margin-top: 50px;
+    font-size: 20px;
+
+}
+
+#movieInfo {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-right: 150px;
+    margin-left: 50px; 
 }
 
 img {
     height: 150px;
+    margin-right: 200px; 
 }
 
 #text {
     width: 400px;
+    margin-right: 20px;
+    margin-left: 50px; 
 }
 
 #submit {
     border-radius: 25px;
 }
 
+
+select {
+    margin-top: 20px;
+    margin-left: 50px;
+    width: 175px;
+}
+form {
+    display: flex;
+}
 li {
-    list-style: none;
+    margin-right: 80px;
+    margin-left: 50px; 
 }
