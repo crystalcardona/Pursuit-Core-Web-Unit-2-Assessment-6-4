@@ -35,41 +35,36 @@ document.addEventListener("DOMContentLoaded", () => {
         userReview.appendChild(submitReview)
     }
 
-    const populateDescription = async () => {
+    select.addEventListener("change", async event => {
         try {
-            let resDescript = await axios.get("https://ghibliapi.herokuapp.com/films");
-            let info = resDescript.data
-            debugger
-                input = select.value
-                let p = document.createElement("p")
-                let p2 = document.createElement("p")
-                let p3 = document.createElement("p")
-                release = info["release_date"]
-                descript = info.input["description"]
-                title = info.input["title"]
-                debugger
-                
-                p.innerText = title;
-                p2.innerText = release;
-                p3.innerText = descript;
-                movieInfo.appendChild(p)
-                movieInfo.appendChild(p2)
-                movieInfo.appendChild(p3)
+          let info = await axios.get(
+            `https://ghibliapi.herokuapp.com/films/${event.target.value}`
+          );
+          let p = document.createElement("p")
+          let p2 = document.createElement("p")
+          let p3 = document.createElement("p")
+    
+          release = info["release_date"]
+          descript = info["description"]
+          title = info["title"]
+    
+          title.innerText = title;
+          descript.innerText = descript;
+          release.innerText = release;
+    
+          movieInfo.appendChild(p)
+          movieInfo.appendChild(p2)
+          movieInfo.appendChild(p3)
+        } catch (err) {
+          debugger;
         }
-        catch(err){
-            console.log(err)
-        }
-    }
+      });
 
     submit.addEventListener("click", (e) => {
         e.preventDefault()
         review()
     })
-    select.addEventListener("change", (event) => {
-        event.preventDefault()
-        select.value = event.target.value
-        populateDescription(select.value)
 
-    })
     fetchData()
 })
+
